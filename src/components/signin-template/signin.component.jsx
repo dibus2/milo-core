@@ -13,6 +13,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { themeOptions } from '../../utils/themes';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCurrentUserAsync } from '../../store/user/user.actions';
 
 function Copyright(props) {
     return (
@@ -30,13 +32,11 @@ function Copyright(props) {
 const theme = createTheme(themeOptions);
 
 export default function SignInSide() {
+    const dispatch = useDispatch();
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
+        dispatch(setCurrentUserAsync(data));
     };
 
     return (
@@ -67,7 +67,7 @@ export default function SignInSide() {
                             alignItems: 'center',
                         }}
                     >
-                        <Avatar sx={{ m: 1, backgroundColor: theme.palette.secondary.main}}>
+                        <Avatar sx={{ m: 1, backgroundColor: theme.palette.secondary.main }}>
                             <LockOutlinedIcon />
                         </Avatar>
                         <Typography component="h1" variant="h5">

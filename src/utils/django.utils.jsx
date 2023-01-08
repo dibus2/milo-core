@@ -42,12 +42,14 @@ const __API_ENDPOINTS__ = {
 
 export class DJANGO_API {
     static async login(body) {
-        return await fetch(`${__API_ENDPOINTS__['login']}`, {
-            method: 'GET',
+        console.log(body);
+        return await fetch(`${DJANGO_SERVER}${__API_ENDPOINTS__['login'][1]}`, {
+            method: `${__API_ENDPOINTS__['login'][0]}`,
             headers: {
                 'Content-Type': 'application/json',
                 //                'Authorization': `Token ${token}`
             },
+            body: body
         })
             .then(resp => resp.json());
     };
