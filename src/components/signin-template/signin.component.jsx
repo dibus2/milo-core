@@ -14,7 +14,7 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { themeOptions } from '../../utils/themes';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentUserAsync } from '../../store/user/user.actions';
+import { loginCurrentUserAsync} from '../../store/user/user.actions';
 
 function Copyright(props) {
     return (
@@ -36,7 +36,7 @@ export default function SignInSide() {
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        dispatch(setCurrentUserAsync(data));
+        dispatch(loginCurrentUserAsync(data));
     };
 
     return (

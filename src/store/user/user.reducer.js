@@ -2,7 +2,7 @@ import { UserReducerValidTypes } from "./user.types";
 
 const INITIAL_STATE = {
     email: "",
-    token: "",
+    token: null,
     isLoading: false,
     error: null
 };
@@ -10,19 +10,19 @@ const INITIAL_STATE = {
 export const UserReducer = (state = INITIAL_STATE, action) => {
     const { type, payload } = action;
     switch (type) {
-        case UserReducerValidTypes.LOG_CURRENT_USER_START:
+        case UserReducerValidTypes.LOGIN_CURRENT_USER_START:
             return {
                 ...state,
                 isLoading: true,
             };
-        case UserReducerValidTypes.LOG_CURRENT_USER_SUCCESS:
+        case UserReducerValidTypes.LOGIN_CURRENT_USER_SUCCESS:
             return {
                 ...state,
                 isLoading: false,
                 email: payload.email,
                 token: payload.token
             };
-        case UserReducerValidTypes.LOG_CURRENT_USER_FAILED:
+        case UserReducerValidTypes.LOGIN_CURRENT_USER_FAILED:
             return {
                 ...state,
                 isLoading: false,

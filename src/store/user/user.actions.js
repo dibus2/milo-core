@@ -2,24 +2,32 @@ import { DJANGO_API } from "../../utils/django.utils";
 import { createAction } from "../utils";
 import { UserReducerValidTypes } from "./user.types";
 
-export const logCurrentUserStart = () =>
-    createAction(UserReducerValidTypes.LOG_CURRENT_USER_START);
+export const loginCurrentUserStart = () =>
+    createAction(UserReducerValidTypes.LOGIN_CURRENT_USER_START);
 
-export const logCurrentUserFailed = () =>
-    createAction(UserReducerValidTypes.LOG_CURRENT_USER_FAILED);
+export const loginCurrentUserFailed = () =>
+    createAction(UserReducerValidTypes.LOGIN_CURRENT_USER_FAILED);
 
-export const logCurrentUserSuccess = () =>
-    createAction(UserReducerValidTypes.LOG_CURRENT_USER_SUCCESS);
+export const loginCurrentUserSuccess = () =>
+    createAction(UserReducerValidTypes.LOGIN_CURRENT_USER_SUCCESS);
 
-export const logCurrentUserAsync = (username, password) => async (dispatch) => {
-    dispatch(logCurrentUserStart);
+export const loginCurrentUserAsync = (username, password) => async (dispatch) => {
+    dispatch(loginCurrentUserStart);
     try {
         const user = await DJANGO_API.login({
             "username": username,
             "password": password
         });
-        dispatch(logCurrentUserSuccess);
+        dispatch(loginCurrentUserSuccess(user));
     } catch (error) {
-        dispatch(logCurrentUserFailed);
+        dispatch(loginCurrentUserFailed);
     }
 };
+
+export const logoutCurrentUser = () => (dispatch) => {
+    dispatch(logoutCurrentUserStart);
+    try {
+
+    }
+
+}

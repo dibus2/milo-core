@@ -1,9 +1,13 @@
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { selectCurrentUserToken } from "../store/user/user.selector";
 import "./navigation.styles.scss";
 import { faDiceD20 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Outlet } from "react-router-dom/dist";
 import LoginIcon from '@mui/icons-material/Login';
+import LogoutIcon from '@mui/icons-material/Logout';
+
 
 const NavBar = () => {
     /**
@@ -12,6 +16,11 @@ const NavBar = () => {
      */
     // sign-in is a placeholder for now -- we need to get the user from cookies 
     // or from the redux
+    const currentToken = useSelector(selectCurrentUserToken);
+    const dispatch = useDispatch();
+    const signOutCurrentUser = () => {
+        dispatch(logOutCurrentUser());
+    }
     return (
         <>
             <div className="nav-bar-main-container">
@@ -25,12 +34,22 @@ const NavBar = () => {
                         </Link>
                     </div>
                     <div className="nav-links-container">
-                        <Link className="nav-links" to="/signin">
-                            <div className="sign-in-button-container">
-                                <div className="label">Sign-in</div>
-                                <LoginIcon />
-                            </div>
-                        </Link>
+                        {
+                            (currentToken) ?
+                                <Link className="nav-links" to="/signin">
+                                    <div className="sign-in-button-container">
+                                        <div className="label">Sign-in</div>
+                                        <LoginIcon />
+                                    </div>
+                                </Link>
+                                :
+                                <button className="nav-links" onClick={signOutCurrentUser}>
+                                    <div className="sign-in-button-container">
+                                        <div className="label">Sign-out</div>
+                                        <LogoutIcon />
+                                    </div>
+                                </button>
+                        }
                     </div>
                 </div>
             </div>
