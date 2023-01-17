@@ -18,16 +18,29 @@ export const loginCurrentUserAsync = (username, password) => async (dispatch) =>
             "username": username,
             "password": password
         });
+        console.log(user);
         dispatch(loginCurrentUserSuccess(user));
     } catch (error) {
         dispatch(loginCurrentUserFailed);
     }
 };
 
-export const logoutCurrentUser = () => (dispatch) => {
+export const logoutCurrentUserStart = () =>
+    createAction(UserReducerValidTypes.LOGOUT_CURRENT_USER_START);
+
+export const logoutCurrentUserFailed = () =>
+    createAction(UserReducerValidTypes.LOGOUT_CURRENT_USER_FAILED);
+
+export const logoutCurrentUserSuccess = () =>
+    createAction(UserReducerValidTypes.LOGOUT_CURRENT_USER_SUCCESS);
+
+export const logoutCurrentUserAsync = () => (dispatch) => {
     dispatch(logoutCurrentUserStart);
     try {
-
+        dispatch(logoutCurrentUserSuccess({"email": "", "token": null}));
+    } catch (error) {
+        dispatch(
+            logoutCurrentUserFailed
+        );
     }
-
 }

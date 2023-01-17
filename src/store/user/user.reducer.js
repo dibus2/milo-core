@@ -11,11 +11,13 @@ export const UserReducer = (state = INITIAL_STATE, action) => {
     const { type, payload } = action;
     switch (type) {
         case UserReducerValidTypes.LOGIN_CURRENT_USER_START:
+        case UserReducerValidTypes.LOGOUT_CURRENT_USER_START:
             return {
                 ...state,
                 isLoading: true,
             };
         case UserReducerValidTypes.LOGIN_CURRENT_USER_SUCCESS:
+        case UserReducerValidTypes.LOGOUT_CURRENT_USER_SUCCESS:
             return {
                 ...state,
                 isLoading: false,
@@ -23,6 +25,7 @@ export const UserReducer = (state = INITIAL_STATE, action) => {
                 token: payload.token
             };
         case UserReducerValidTypes.LOGIN_CURRENT_USER_FAILED:
+        case UserReducerValidTypes.LOGOUT_CURRENT_USER_FAILED:
             return {
                 ...state,
                 isLoading: false,

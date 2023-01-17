@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Outlet } from "react-router-dom/dist";
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { logoutCurrentUserAsync } from '../store/user/user.actions';
 
 
 const NavBar = () => {
@@ -17,9 +18,10 @@ const NavBar = () => {
     // sign-in is a placeholder for now -- we need to get the user from cookies 
     // or from the redux
     const currentToken = useSelector(selectCurrentUserToken);
+    console.log("current Token: ", currentToken);
     const dispatch = useDispatch();
     const signOutCurrentUser = () => {
-        dispatch(logOutCurrentUser());
+        dispatch(logoutCurrentUserAsync());
     }
     return (
         <>
@@ -35,7 +37,7 @@ const NavBar = () => {
                     </div>
                     <div className="nav-links-container">
                         {
-                            (currentToken) ?
+                            (!currentToken) ?
                                 <Link className="nav-links" to="/signin">
                                     <div className="sign-in-button-container">
                                         <div className="label">Sign-in</div>
@@ -43,12 +45,12 @@ const NavBar = () => {
                                     </div>
                                 </Link>
                                 :
-                                <button className="nav-links" onClick={signOutCurrentUser}>
+                                <Link className="nav-links" onClick={signOutCurrentUser} to="/">
                                     <div className="sign-in-button-container">
                                         <div className="label">Sign-out</div>
                                         <LogoutIcon />
                                     </div>
-                                </button>
+                                </Link>
                         }
                     </div>
                 </div>
